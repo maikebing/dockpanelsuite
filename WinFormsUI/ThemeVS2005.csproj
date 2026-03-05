@@ -154,8 +154,5 @@
   <ItemGroup>
     <None Include="ThemeVS2005\Resources\DockPane_OptionOverflow.png" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="10.0.3" Condition="'$(TargetFramework)' == 'net10.0-windows'" />
-  </ItemGroup>
 
 </Project>

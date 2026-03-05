@@ -108,8 +108,5 @@
   <ItemGroup>
     <ProjectReference Include="WinFormsUI.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="10.0.3" Condition="'$(TargetFramework)' == 'net10.0-windows'" />
-  </ItemGroup>
 
 </Project>
