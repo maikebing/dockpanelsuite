@@ -8,3 +8,16 @@ Status: Complete
 
 Success - .NET 10.0 SDK verified and ready.
 
+
+## [2026-03-05 20:37] TASK-002: Phase 1 - Migrate WinFormsUI foundation library
+
+Status: Complete
+
+- **Verified**: .NET 10.0 SDK 10.0.103 present
+- **Files Modified**: WinFormsUI\WinFormsUI.csproj, DockPaneCaptionBase.cs, DockPaneStripBase.cs, DockPane.cs, DockPane.SplitterControl.cs, DockPanel.Appearance.cs, DockPanel.AutoHideWindow.cs, DockPanel.DockDragHandler.cs, DockPanel.MdiClientController.cs, DragForm.cs, FloatWindow.cs, ThemeBase.cs, VisualStudioToolStripExtender.cs
+- **Code Changes**: Added net10.0-windows to TargetFrameworks; added System.Drawing.Common 10.0.3 (conditional on net10.0-windows); added [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)] to 19 properties across 10 files (WFO1000 fixes); removed 3 obsolete [SecurityPermission] attributes (SYSLIB0003 fixes); added using System.ComponentModel to DragForm.cs, FloatWindow.cs, DockPanel.DockDragHandler.cs
+- **Commits**: [upgrade-to-NET10 5239b4a] Phase 1 complete: WinFormsUI migrated to net10.0-windows
+- **Tests**: net40 ✅ 0 errors, netcoreapp3.1 ✅ 0 errors, net10.0-windows ✅ 0 errors. net35 has pre-existing ResGen.exe limitation with dotnet CLI (not introduced by these changes).
+
+Success - WinFormsUI foundation library migrated to net10.0-windows.
+

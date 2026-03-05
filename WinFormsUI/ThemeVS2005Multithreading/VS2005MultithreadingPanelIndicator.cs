@@ -47,6 +47,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         }
 
         private DockStyle m_status;
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public DockStyle Status
         {
             get { return m_status; }

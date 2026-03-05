@@ -196,6 +196,7 @@ namespace WeifenLuo.WinFormsUI.Docking
             get { return m_selectMenu; }
         }
 
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public int SelectMenuMargin
         {
             get { return _selectMenuMargin; }
