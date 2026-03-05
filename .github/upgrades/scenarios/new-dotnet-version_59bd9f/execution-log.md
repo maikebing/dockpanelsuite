@@ -33,3 +33,16 @@ Status: Complete
 
 Success - All 4 high-complexity theme libraries migrated to net10.0-windows.
 
+
+## [2026-03-05 20:52] TASK-004: Phase 2b - Migrate medium themes and test libraries
+
+Status: Complete
+
+- **Files Modified**: ThemeVS2003.csproj, ThemeVS2005.csproj, Tests2.csproj, Tests3.csproj; InertButton.cs (ThemeVS2003), VS2005PaneIndicatorFactory.cs, VS2005PanelIndicatorFactory.cs, VS2005DockPaneStrip.cs
+- **Files Created**: N/A — SDK conversion preserved existing code files
+- **Code Changes**: ThemeVS2003/ThemeVS2005: added net10.0-windows to TargetFrameworks, added System.Drawing.Common 10.0.3; Tests2/Tests3: converted to SDK-style, set TargetFramework to net10.0-windows, added UseWindowsForms=true, added Microsoft.NET.Test.Sdk 17.12.0; Fixed WFO1000 errors by adding [DesignerSerializationVisibility(Hidden)] to 10 properties in InertButton.cs and 4 properties across VS2005 indicator files
+- **Tests**: All 4 projects build for net10.0-windows (0 errors) and netcoreapp3.1 (0 errors for themes). Tests2 and Tests3 ready for test execution.
+- **Commits**: [upgrade-to-NET10 9a7657b] Phase 2b complete
+
+Success - All theme and test libraries migrated to net10.0-windows.
+
