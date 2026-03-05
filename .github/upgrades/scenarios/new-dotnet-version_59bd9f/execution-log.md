@@ -46,3 +46,15 @@ Status: Complete
 
 Success - All theme and test libraries migrated to net10.0-windows.
 
+
+## [2026-03-05 20:56] TASK-005: Phase 3 - Migrate applications
+
+Status: Complete
+
+- **Files Modified**: DockSample.csproj, Tests.csproj, DummyDoc.cs, Properties\AssemblyInfo.cs (DockSample)
+- **Code Changes**: DockSample: converted to SDK-style, retargeted to net10.0-windows, added System.Drawing.Common 10.0.3 and System.Configuration.ConfigurationManager 10.0.1, fixed wildcard version in AssemblyInfo.cs ("2.0.*" → "2.0.0.0"), fixed WFO1000 in DummyDoc.cs FileName property; Tests: converted to SDK-style, retargeted to net10.0-windows, added Microsoft.NET.Test.Sdk 17.12.0
+- **Build Status**: DockSample builds with 0 errors (301 warnings), Tests builds with 0 errors (1139 warnings), Solution builds for net10.0-windows with 0 errors. Pre-existing net40 errors (MSB3822/MSB3823) in theme projects remain but do not affect net10.0-windows builds.
+- **Commits**: [upgrade-to-NET10 7fc2809] Phase 3 complete
+
+Success - All applications migrated to net10.0-windows. Entire solution builds successfully for net10.0-windows.
+

@@ -4,7 +4,7 @@
 
 This document tracks the incremental migration of the WinFormsUI.Docking solution from multiple .NET Framework versions (.NET Framework 3.5/4.0/4.8, .NET Core 3.1) to .NET 10.0. The upgrade follows a dependency-ordered approach with validation checkpoints between phases.
 
-**Progress**: 4/6 tasks complete (67%) ![0%](https://progress-bar.xyz/67)
+**Progress**: 5/6 tasks complete (83%) ![0%](https://progress-bar.xyz/83)
 
 ---
 
@@ -74,34 +74,34 @@ This document tracks the incremental migration of the WinFormsUI.Docking solutio
 
 ---
 
-### [▶] TASK-005: Phase 3 - Migrate applications
+### [✓] TASK-005: Phase 3 - Migrate applications *(Completed: 2026-03-05 12:56)*
 **References**: Plan §Phase 3: Applications, Plan §DockSample.csproj, Plan §Tests.csproj
 
-- [▶] (1) Convert DockSample.csproj to SDK-style format and set TargetFramework to `net10.0-windows` per Plan §DockSample.csproj §SDK Conversion
-- [ ] (2) DockSample converted to SDK-style (**Verify**)
-- [ ] (3) Add `System.Drawing.Common` version 9.0.0 and `System.Configuration.ConfigurationManager` version 9.0.0 to DockSample
-- [ ] (4) PackageReferences added to DockSample (**Verify**)
-- [ ] (5) Convert Tests.csproj to SDK-style format and set TargetFramework to `net10.0-windows` per Plan §Tests.csproj §SDK Conversion
-- [ ] (6) Tests converted to SDK-style (**Verify**)
-- [ ] (7) Update NUnit packages in Tests.csproj: add `Microsoft.NET.Test.Sdk` version 17.12.0, retain NUnit 3.9.0 and NUnit3TestAdapter 3.9.0
-- [ ] (8) NUnit packages updated (**Verify**)
-- [ ] (9) Restore dependencies for both applications
-- [ ] (10) Dependencies restored successfully (**Verify**)
-- [ ] (11) Build DockSample and fix all compilation errors per Plan §DockSample Migration Steps (focus: designer files, configuration system, Windows Forms APIs, theme integration)
-- [ ] (12) DockSample builds with 0 errors (**Verify**)
-- [ ] (13) Build Tests.csproj and fix compilation errors
-- [ ] (14) Tests project builds with 0 errors (**Verify**)
-- [ ] (15) Build entire solution to verify integration: `dotnet build WinFormsUI.Docking.sln`
-- [ ] (16) Solution builds with 0 errors (**Verify**)
-- [ ] (17) Commit changes with message: "Phase 3 complete: All applications migrated to net10.0"
-- [ ] (18) Tag commit: `git tag phase-3-complete`
+- [✓] (1) Convert DockSample.csproj to SDK-style format and set TargetFramework to `net10.0-windows` per Plan §DockSample.csproj §SDK Conversion
+- [✓] (2) DockSample converted to SDK-style (**Verify**)
+- [✓] (3) Add `System.Drawing.Common` version 9.0.0 and `System.Configuration.ConfigurationManager` version 9.0.0 to DockSample
+- [✓] (4) PackageReferences added to DockSample (**Verify**)
+- [✓] (5) Convert Tests.csproj to SDK-style format and set TargetFramework to `net10.0-windows` per Plan §Tests.csproj §SDK Conversion
+- [✓] (6) Tests converted to SDK-style (**Verify**)
+- [✓] (7) Update NUnit packages in Tests.csproj: add `Microsoft.NET.Test.Sdk` version 17.12.0, retain NUnit 3.9.0 and NUnit3TestAdapter 3.9.0
+- [✓] (8) NUnit packages updated (**Verify**)
+- [✓] (9) Restore dependencies for both applications
+- [✓] (10) Dependencies restored successfully (**Verify**)
+- [✓] (11) Build DockSample and fix all compilation errors per Plan §DockSample Migration Steps (focus: designer files, configuration system, Windows Forms APIs, theme integration)
+- [✓] (12) DockSample builds with 0 errors (**Verify**)
+- [✓] (13) Build Tests.csproj and fix compilation errors
+- [✓] (14) Tests project builds with 0 errors (**Verify**)
+- [✓] (15) Build entire solution to verify integration: `dotnet build WinFormsUI.Docking.sln`
+- [✓] (16) Solution builds with 0 errors (**Verify**)
+- [✓] (17) Commit changes with message: "Phase 3 complete: All applications migrated to net10.0"
+- [✓] (18) Tag commit: `git tag phase-3-complete`
 
 ---
 
-### [ ] TASK-006: Run full test suite and validate upgrade
+### [▶] TASK-006: Run full test suite and validate upgrade
 **References**: Plan §Testing & Validation Strategy §Phase 3 Testing
 
-- [ ] (1) Run tests in Tests.csproj: `dotnet test Tests\Tests.csproj`
+- [▶] (1) Run tests in Tests.csproj: `dotnet test Tests\Tests.csproj`
 - [ ] (2) Fix any test failures (reference Plan §Breaking Changes for behavioral changes)
 - [ ] (3) Re-run tests after fixes
 - [ ] (4) All tests pass with 0 failures (**Verify**)
@@ -109,6 +109,8 @@ This document tracks the incremental migration of the WinFormsUI.Docking solutio
 - [ ] (6) Tag commit: `git tag v10.0-migration-complete`
 
 ---
+
+
 
 
 
