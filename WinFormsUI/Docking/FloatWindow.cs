@@ -185,7 +185,9 @@ namespace WeifenLuo.WinFormsUI.Docking
             base.SetBoundsCore (x, y, width, height, specified);
         }
 
+        #if NET40
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+#endif
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
