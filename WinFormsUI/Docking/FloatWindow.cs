@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Security.Permissions;
@@ -73,6 +74,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         }
 
         private bool m_allowEndUserDocking = true;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool AllowEndUserDocking
         {
             get	{	return m_allowEndUserDocking;	}
@@ -80,6 +82,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         }
 
         private bool m_doubleClickTitleBarToDock = true;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool DoubleClickTitleBarToDock
         {
             get { return m_doubleClickTitleBarToDock; }
@@ -182,7 +185,9 @@ namespace WeifenLuo.WinFormsUI.Docking
             base.SetBoundsCore (x, y, width, height, specified);
         }
 
+        #if NET40
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+#endif
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)

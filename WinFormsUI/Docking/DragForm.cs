@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -41,6 +42,7 @@ namespace WeifenLuo.WinFormsUI.Docking
             };
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Color? BackgroundColor { get; set; }
 
         protected override CreateParams CreateParams
