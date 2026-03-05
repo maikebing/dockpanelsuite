@@ -35,6 +35,7 @@ namespace WeifenLuo.WinFormsUI.Docking
                 }
             }
 
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public bool AutoScroll
             {
                 get { return m_autoScroll; }
@@ -50,6 +51,7 @@ namespace WeifenLuo.WinFormsUI.Docking
                 }
             }
 
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public BorderStyle BorderStyle
             {
                 set

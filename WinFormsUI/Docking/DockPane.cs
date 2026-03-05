@@ -158,6 +158,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         }
 
         private IDockContent m_activeContent = null;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public virtual IDockContent ActiveContent
         {
             get { return m_activeContent; }
@@ -219,6 +220,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         }
 
         private bool m_allowDockDragAndDrop = true;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public virtual bool AllowDockDragAndDrop
         {
             get { return m_allowDockDragAndDrop; }
@@ -226,6 +228,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         }
 
         private IDisposable m_autoHidePane = null;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         internal IDisposable AutoHidePane
         {
             get { return m_autoHidePane; }
@@ -233,6 +236,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         }
 
         private object m_autoHideTabs = null;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         internal object AutoHideTabs
         {
             get { return m_autoHideTabs; }
@@ -817,6 +821,7 @@ namespace WeifenLuo.WinFormsUI.Docking
                 handler(this, e);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DockWindow DockWindow
         {
             get { return (m_nestedDockingStatus.NestedPanes == null) ? null : m_nestedDockingStatus.NestedPanes.Container as DockWindow; }
@@ -830,6 +835,7 @@ namespace WeifenLuo.WinFormsUI.Docking
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FloatWindow FloatWindow
         {
             get { return (m_nestedDockingStatus.NestedPanes == null) ? null : m_nestedDockingStatus.NestedPanes.Container as FloatWindow; }
@@ -867,6 +873,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         }
 
         private DockState m_dockState = DockState.Unknown;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DockState DockState
         {
             get { return m_dockState; }
@@ -1218,7 +1225,6 @@ namespace WeifenLuo.WinFormsUI.Docking
             DockPanel.ResumeLayout(true, true);
         }
 
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == (int)Win32.Msgs.WM_MOUSEACTIVATE)
@@ -1236,6 +1242,7 @@ namespace WeifenLuo.WinFormsUI.Docking
             get { return this; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IDockContent MouseOverTab { get; set; }
 
 #endregion

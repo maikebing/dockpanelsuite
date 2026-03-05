@@ -73,6 +73,7 @@ namespace WeifenLuo.WinFormsUI.Docking
 
         #endregion
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ToolStripRenderer DefaultRenderer { get; set; }
 
         [DefaultValue(false)]

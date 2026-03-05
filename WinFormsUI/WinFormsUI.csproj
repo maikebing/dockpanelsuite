@@ -20,7 +20,7 @@
       Visual Studio 2013 Themes: https://www.nuget.org/packages/DockPanelSuite.ThemeVS2013/
       Visual Studio 2015 Themes: https://www.nuget.org/packages/DockPanelSuite.ThemeVS2015/
     </PackageReleaseNotes>
-    <TargetFrameworks>netcoreapp3.1;net40;net35</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net40;net35;net10.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject />
     <RootNamespace>WeifenLuo.WinFormsUI</RootNamespace>
@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <!--<PackageReference Include="Vanara.PInvoke.SHCore" Version="3.3.4" />-->
+    <PackageReference Include="System.Drawing.Common" Version="10.0.3" Condition="'$(TargetFramework)' == 'net10.0-windows'" />
   </ItemGroup>
 
 </Project>

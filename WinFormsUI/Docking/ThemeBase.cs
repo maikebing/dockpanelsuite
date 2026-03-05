@@ -19,12 +19,16 @@ namespace WeifenLuo.WinFormsUI.Docking
             Extender = new DockPanelExtender();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DockPanelSkin Skin { get; protected set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DockPanelColorPalette ColorPalette { get; protected set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IImageService ImageService { get; protected set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IPaintingService PaintingService { get; protected set; }
 
         protected ToolStripRenderer ToolStripRenderer { get; set;}
@@ -71,6 +75,7 @@ namespace WeifenLuo.WinFormsUI.Docking
 
         public Measures Measures { get; } = new Measures();
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool ShowAutoHideContentOnHover { get; protected set; } = true;
 
         public void ApplyTo(DockPanel dockPanel)
