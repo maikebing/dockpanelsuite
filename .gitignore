@@ -29,3 +29,4 @@ T4MVC.cs
 /.vs
 /.idea
 *.bak
+/.github/upgrades/scenarios/new-dotnet-version_59bd9f/scenario.json
