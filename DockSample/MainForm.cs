@@ -410,9 +410,9 @@ namespace DockSample
             if (File.Exists(configFile))
                 dockPanel.LoadFromXml(configFile, m_deserializeDockContent);
         }
-
-        private void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            base.OnFormClosing(e);
             string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
             if (m_bSaveLayout)
                 dockPanel.SaveAsXml(configFile);
