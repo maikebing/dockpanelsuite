@@ -1,0 +1,85 @@
+name: Publish NuGet Packages
+
+on:
+  push:
+    tags:
+      - 'v*.*.*.*'  # Matches tags like v3.1.1.9
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+        
+    - name: Extract version from tag
+      id: version
+      shell: pwsh
+      run: |
+        $tag = "${{ github.ref_name }}"
+        $version = $tag -replace '^v', ''
+        
+        # FileVersion: full version (e.g., 3.1.1.9)
+        $fileVersion = $version
+        
+        # PackageVersion: remove last segment (e.g., 3.1.1)
+        $parts = $version -split '\.'
+        if ($parts.Length -gt 3) {
+          $packageVersion = ($parts[0..2] -join '.')
+        } else {
+          $packageVersion = $version
+        }
+        
+        echo "file-version=$fileVersion" >> $env:GITHUB_OUTPUT
+        echo "package-version=$packageVersion" >> $env:GITHUB_OUTPUT
+        echo "Full version: $fileVersion"
+        echo "Package version: $packageVersion"
+    
+    - name: Restore dependencies
+      run: dotnet restore WinFormsUI.Docking.sln
+      
+    - name: Build and pack all projects
+      run: |
+        dotnet pack WinFormsUI.Docking.sln `
+          --configuration Release `
+          --no-restore `
+          -p:TargetFrameworks=net40;net10.0-windows `
+          -p:PackageVersion=${{ steps.version.outputs.package-version }} `
+          -p:FileVersion=${{ steps.version.outputs.file-version }} `
+          -p:AssemblyVersion=${{ steps.version.outputs.file-version }} `
+          -p:IncludeSymbols=true `
+          -p:SymbolPackageFormat=snupkg `
+          --output ./artifacts
+          
+    - name: List generated packages
+      shell: pwsh
+      run: |
+        Write-Host "Generated packages:"
+        Get-ChildItem ./artifacts/*.nupkg | ForEach-Object { Write-Host "  - $($_.Name)" }
+        
+    - name: Publish to NuGet.org
+      shell: pwsh
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: |
+        $packages = Get-ChildItem ./artifacts/*.nupkg -Exclude *.symbols.nupkg
+        foreach ($pkg in $packages) {
+          Write-Host "Publishing $($pkg.Name)..."
+          dotnet nuget push $pkg.FullName `
+            --api-key $env:NUGET_API_KEY `
+            --source https://api.nuget.org/v3/index.json `
+            --skip-duplicate
+        }
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-packages-${{ steps.version.outputs.package-version }}
+        path: ./artifacts/*.nupkg
+        retention-days: 90
