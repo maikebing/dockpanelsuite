@@ -14,7 +14,7 @@
       Release notes can be found at GitHub,
       https://github.com/dockpanelsuite/dockpanelsuite/releases
     </PackageReleaseNotes>
-    <TargetFrameworks>netcoreapp3.1;net35;net40</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net35;net40;net10.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject />
     <RootNamespace>WeifenLuo.WinFormsUI</RootNamespace>
@@ -153,6 +153,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ThemeVS2005\Resources\DockPane_OptionOverflow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="10.0.3" Condition="'$(TargetFramework)' == 'net10.0-windows'" />
   </ItemGroup>
 
 </Project>

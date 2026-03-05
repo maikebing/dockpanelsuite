@@ -113,6 +113,7 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2003
             return (m_borderColor != Color.Empty);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int BorderWidth
         {
             get { return m_borderWidth; }
@@ -164,6 +165,7 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2003
             return (m_imageEnabled != null);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Image ImageDisabled
         {
             get
@@ -194,6 +196,7 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2003
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ImageIndexEnabled
         {
             get    {    return m_imageIndexEnabled;    }
@@ -207,6 +210,7 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2003
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ImageIndexDisabled
         {
             get    {    return m_imageIndexDisabled;    }
@@ -220,6 +224,7 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2003
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsPopup
         {
             get { return m_isPopup; }
@@ -234,6 +239,7 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2003
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Monochrome
         {
             get    {    return m_monochrom;    }
@@ -247,6 +253,7 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2003
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool RepeatClick
         {
             get    {    return (ClickStatus != RepeatClickStatus.Disabled);    }
@@ -276,13 +283,15 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2003
         }
 
         private int m_repeatClickDelay = 500;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int RepeatClickDelay
         {
-            get    {    return m_repeatClickDelay;    } 
+            get    {    return m_repeatClickDelay;    }
             set    {    m_repeatClickDelay = value;    }
         }
 
         private int m_repeatClickInterval = 100;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int RepeatClickInterval
         {
             get    {    return m_repeatClickInterval;    }
@@ -295,6 +304,7 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2003
             get    {    return m_timer;    }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string ToolTipText
         {
             get    {    return m_toolTipText;    }
