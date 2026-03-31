@@ -313,21 +313,28 @@ namespace WeifenLuo.WinFormsUI.Docking
 
             private void SetTimerMouseTrack()
             {
-                if (ActivePane == null || ActivePane.IsActivated || FlagDragging)
+                try
                 {
-                    m_timerMouseTrack.Enabled = false;
-                    return;
+                    if (ActivePane == null || ActivePane.IsActivated || FlagDragging)
+                    {
+                        m_timerMouseTrack.Enabled = false;
+                        return;
+                    }
+
+                    // start the timer
+                    int hovertime = SystemInformation.MouseHoverTime;
+
+                    // assign a default value 400 in case of setting Timer.Interval invalid value exception
+                    if (hovertime <= 0)
+                        hovertime = 400;
+
+                    m_timerMouseTrack.Interval = 2 * hovertime;
+                    m_timerMouseTrack.Enabled = true;
                 }
-
-                // start the timer
-                int hovertime = SystemInformation.MouseHoverTime ;
-
-                // assign a default value 400 in case of setting Timer.Interval invalid value exception
-                if (hovertime <= 0)
-                    hovertime = 400;
-
-                m_timerMouseTrack.Interval = 2 * (int)hovertime;
-                m_timerMouseTrack.Enabled = true;
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
             }
 
             protected virtual Rectangle DisplayingRectangle

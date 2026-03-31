@@ -41,6 +41,10 @@ namespace WeifenLuo.WinFormsUI.Docking
             if (toolStrip == null)
                 return;
 
+            if (_stripBefore.ContainsKey(toolStrip))
+                return;
+
+            toolStrip.Disposed += ToolStripOnDisposed;
             _stripBefore[toolStrip] = new KeyValuePair<ToolStripRenderMode, ToolStripRenderer>(toolStrip.RenderMode, toolStrip.Renderer);
             if(ToolStripRenderer != null)
                 toolStrip.Renderer = ToolStripRenderer;
@@ -51,6 +55,16 @@ namespace WeifenLuo.WinFormsUI.Docking
                 {
                     ItemResetOwnerHack(item);
                 }
+            }
+        }
+
+        private void ToolStripOnDisposed(object sender, EventArgs e)
+        {
+            var toolStrip = sender as ToolStrip;
+            if (toolStrip != null && _stripBefore.ContainsKey(toolStrip))
+            {
+                toolStrip.Disposed -= ToolStripOnDisposed;
+                _stripBefore.Remove(toolStrip);
             }
         }
 
@@ -144,6 +158,7 @@ namespace WeifenLuo.WinFormsUI.Docking
             {
                 var strip = item.Key;
                 var cache = item.Value;
+                strip.Disposed -= ToolStripOnDisposed;
                 if (cache.Key == ToolStripRenderMode.Custom)
                 {
                     if (cache.Value != null)

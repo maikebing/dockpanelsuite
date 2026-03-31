@@ -606,6 +606,7 @@ namespace WeifenLuo.WinFormsUI.Docking
                 }
 
                 // Create panes
+                DockPane[] loadedPanes = new DockPane[panes.Length];
                 for (int i = 0; i < panes.Length; i++)
                 {
                     DockPane pane = null;
@@ -613,7 +614,10 @@ namespace WeifenLuo.WinFormsUI.Docking
                     {
                         IDockContent content = dockPanel.Contents[panes[i].IndexContents[j]];
                         if (j == 0)
+                        {
                             pane = dockPanel.Theme.Extender.DockPaneFactory.CreateDockPane(content, panes[i].DockState, false);
+                            loadedPanes[i] = pane;
+                        }
                         else if (panes[i].DockState == DockState.Float)
                             content.DockHandler.FloatPane = pane;
                         else
@@ -628,9 +632,9 @@ namespace WeifenLuo.WinFormsUI.Docking
                     {
                         DockWindow dw = dockPanel.DockWindows[dockWindows[i].DockState];
                         int indexPane = dockWindows[i].NestedPanes[j].IndexPane;
-                        DockPane pane = dockPanel.Panes[indexPane];
+                        DockPane pane = loadedPanes[indexPane];
                         int indexPrevPane = dockWindows[i].NestedPanes[j].IndexPrevPane;
-                        DockPane prevPane = (indexPrevPane == -1) ? dw.NestedPanes.GetDefaultPreviousPane(pane) : dockPanel.Panes[indexPrevPane];
+                        DockPane prevPane = (indexPrevPane == -1) ? dw.NestedPanes.GetDefaultPreviousPane(pane) : loadedPanes[indexPrevPane];
                         DockAlignment alignment = dockWindows[i].NestedPanes[j].Alignment;
                         double proportion = dockWindows[i].NestedPanes[j].Proportion;
                         pane.DockTo(dw, prevPane, alignment, proportion);
@@ -646,13 +650,13 @@ namespace WeifenLuo.WinFormsUI.Docking
                     for (int j = 0; j < floatWindows[i].NestedPanes.Length; j++)
                     {
                         int indexPane = floatWindows[i].NestedPanes[j].IndexPane;
-                        DockPane pane = dockPanel.Panes[indexPane];
+                        DockPane pane = loadedPanes[indexPane];
                         if (j == 0)
                             fw = dockPanel.Theme.Extender.FloatWindowFactory.CreateFloatWindow(dockPanel, pane, floatWindows[i].Bounds);
                         else
                         {
                             int indexPrevPane = floatWindows[i].NestedPanes[j].IndexPrevPane;
-                            DockPane prevPane = indexPrevPane == -1 ? null : dockPanel.Panes[indexPrevPane];
+                            DockPane prevPane = indexPrevPane == -1 ? null : loadedPanes[indexPrevPane];
                             DockAlignment alignment = floatWindows[i].NestedPanes[j].Alignment;
                             double proportion = floatWindows[i].NestedPanes[j].Proportion;
                             pane.DockTo(fw, prevPane, alignment, proportion);
@@ -677,9 +681,23 @@ namespace WeifenLuo.WinFormsUI.Docking
                         for (int j = i + 1; j < contents.Length; j++)
                         {
                             DockPane pane1 = dockPanel.Contents[sortedContents[i]].DockHandler.Pane;
-                            int ZOrderIndex1 = pane1 == null ? 0 : panes[dockPanel.Panes.IndexOf(pane1)].ZOrderIndex;
+                            int ZOrderIndex1 = 0;
+                            if (pane1 != null)
+                            {
+                                int paneIndex = Array.IndexOf(loadedPanes, pane1);
+                                if (paneIndex >= 0)
+                                    ZOrderIndex1 = panes[paneIndex].ZOrderIndex;
+                            }
+
                             DockPane pane2 = dockPanel.Contents[sortedContents[j]].DockHandler.Pane;
-                            int ZOrderIndex2 = pane2 == null ? 0 : panes[dockPanel.Panes.IndexOf(pane2)].ZOrderIndex;
+                            int ZOrderIndex2 = 0;
+                            if (pane2 != null)
+                            {
+                                int paneIndex = Array.IndexOf(loadedPanes, pane2);
+                                if (paneIndex >= 0)
+                                    ZOrderIndex2 = panes[paneIndex].ZOrderIndex;
+                            }
+
                             if (ZOrderIndex1 > ZOrderIndex2)
                             {
                                 int temp = sortedContents[i];
@@ -715,7 +733,13 @@ namespace WeifenLuo.WinFormsUI.Docking
                 }
 
                 for (int i = 0; i < panes.Length; i++)
-                    dockPanel.Panes[i].ActiveContent = panes[i].IndexActiveContent == -1 ? null : dockPanel.Contents[panes[i].IndexActiveContent];
+                {
+                    DockPane pane = loadedPanes[i];
+                    if (pane == null)
+                        continue;
+
+                    pane.ActiveContent = panes[i].IndexActiveContent == -1 ? null : dockPanel.Contents[panes[i].IndexActiveContent];
+                }
 
                 if (dockPanelStruct.IndexActiveDocumentPane >= 0 && dockPanel.Panes.Count > dockPanelStruct.IndexActiveDocumentPane)
                     dockPanel.Panes[dockPanelStruct.IndexActiveDocumentPane].Activate();

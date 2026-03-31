@@ -42,6 +42,7 @@ namespace WeifenLuo.WinFormsUI.Docking
                     m_autoHideTab.Dispose();
                 if (m_tab != null)
                     m_tab.Dispose();
+                m_tabPageContextMenuStrip?.Dispose();
 
                 Form.Disposed -= new EventHandler(Form_Disposed);
                 Form.TextChanged -= new EventHandler(Form_TextChanged);
@@ -748,6 +749,9 @@ namespace WeifenLuo.WinFormsUI.Docking
                 }
                 else if (DockHelper.IsDockStateAutoHide(DockState))
                 {
+                    if (DockPanel.ActiveAutoHideContent == null)
+                        DockPanel.ActiveAutoHideContent = Content;
+
                     if (DockPanel.ActiveAutoHideContent != Content)
                     {
                         DockPanel.ActiveAutoHideContent = null;
@@ -853,7 +857,6 @@ namespace WeifenLuo.WinFormsUI.Docking
             // Change the parent of a control with focus may result in the first
             // MDI child form get activated. 
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            bool bRestoreFocus = false;
             if (Form.ContainsFocus)
             {
                 // Suggested as a fix for a memory leak by bugreports
@@ -867,7 +870,6 @@ namespace WeifenLuo.WinFormsUI.Docking
                 else
                 {
                     DockPanel.SaveFocus();
-                    bRestoreFocus = true;
                 }
             }
 
@@ -884,8 +886,7 @@ namespace WeifenLuo.WinFormsUI.Docking
             // Change the parent of a control with focus may result in the first
             // MDI child form get activated. 
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if (bRestoreFocus && !Win32Helper.IsRunningOnMono)
-                Activate();
+            // Avoid re-activating here; it can spuriously activate the first MDI child.
 
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
