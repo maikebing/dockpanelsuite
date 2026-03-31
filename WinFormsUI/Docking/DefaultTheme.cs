@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -80,7 +81,33 @@ namespace WeifenLuo.WinFormsUI.Docking
         {
             public DockWindow CreateDockWindow(DockPanel dockPanel, DockState dockState)
             {
-                return new DockWindow(dockPanel, dockState);
+                return new DefaultDockWindow(dockPanel, dockState);
+            }
+        }
+
+        [ToolboxItem(false)]
+        private class DefaultDockWindow : DockWindow
+        {
+            internal DefaultDockWindow(DockPanel dockPanel, DockState dockState)
+                : base(dockPanel, dockState)
+            {
+            }
+
+            protected override void OnPaint(PaintEventArgs e)
+            {
+                if (DockState == DockState.Document)
+                {
+                    try
+                    {
+                        e.Graphics.DrawRectangle(SystemPens.ControlDark, ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                    }
+                    catch (System.Runtime.InteropServices.ExternalException)
+                    {
+                        // Ignore transient GDI+ failures during document border painting.
+                    }
+                }
+
+                base.OnPaint(e);
             }
         }
 
