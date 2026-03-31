@@ -53,7 +53,7 @@ namespace WeifenLuo.WinFormsUI.ThemeVS2012
         public ImageService(ThemeBase theme)
         {
             _palette = theme.ColorPalette;
-            Dockindicator_PaneDiamond_Hotspot = Resources.Dockindicator_PaneDiamond_Hotspot;
+            Dockindicator_PaneDiamond_Hotspot = ImageServiceHelper.ScaleBitmapIfNeeded(Resources.Dockindicator_PaneDiamond_Hotspot);
             DockIndicator_PaneDiamond_HotspotIndex = Resources.DockIndicator_PaneDiamond_HotspotIndex;
 
             var arrow = _palette.DockTarget.GlyphArrow;

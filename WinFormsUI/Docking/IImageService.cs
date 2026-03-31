@@ -51,6 +51,66 @@ namespace WeifenLuo.WinFormsUI.Docking
 
     public static class ImageServiceHelper
     {
+        private static float GetDpiScale()
+        {
+            if (PatchController.EnableHighDpi != true)
+                return 1.0f;
+
+            try
+            {
+                using (var control = new System.Windows.Forms.Control())
+                using (var graphics = control.CreateGraphics())
+                {
+                    var scale = graphics.DpiX / 96.0f;
+                    return scale > 0 ? scale : 1.0f;
+                }
+            }
+            catch
+            {
+                return 1.0f;
+            }
+        }
+
+        private static int ScaleValue(int value, float scale)
+        {
+            return value <= 0 ? value : System.Math.Max(1, (int)System.Math.Round(value * scale));
+        }
+
+        public static Bitmap ScaleBitmapIfNeeded(Bitmap bitmap, bool preservePixels = true)
+        {
+            if (bitmap == null)
+                return null;
+
+            var scale = GetDpiScale();
+            if (scale <= 1.0f)
+                return bitmap;
+
+            var scaled = new Bitmap(
+                ScaleValue(bitmap.Width, scale),
+                ScaleValue(bitmap.Height, scale),
+                PixelFormat.Format32bppArgb);
+
+            using (var graphics = Graphics.FromImage(scaled))
+            {
+                graphics.Clear(Color.Transparent);
+                graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                graphics.InterpolationMode = preservePixels
+                    ? System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor
+                    : System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.PixelOffsetMode = preservePixels
+                    ? System.Drawing.Drawing2D.PixelOffsetMode.Half
+                    : System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                graphics.DrawImage(
+                    bitmap,
+                    new Rectangle(Point.Empty, scaled.Size),
+                    new Rectangle(Point.Empty, bitmap.Size),
+                    GraphicsUnit.Pixel);
+            }
+
+            return scaled;
+        }
+
         /// <summary>
         /// Gets images for tabs and captions.
         /// </summary>
@@ -117,7 +177,11 @@ namespace WeifenLuo.WinFormsUI.Docking
             }
 
             output.Dispose();
-            return back;
+            var scaled = ScaleBitmapIfNeeded(back);
+            if (!ReferenceEquals(scaled, back))
+                back.Dispose();
+
+            return scaled;
         }
 
         public static Bitmap GetBackground(Color innerBorder, Color outerBorder, int width, IPaintingService painting)
@@ -249,7 +313,11 @@ namespace WeifenLuo.WinFormsUI.Docking
                 gfx.DrawImage(icon, offset, offset);
             }
 
-            return result;
+            var scaled = ScaleBitmapIfNeeded(result);
+            if (!ReferenceEquals(scaled, result))
+                result.Dispose();
+
+            return scaled;
         }
 
         public static Bitmap CombineFive(Bitmap five, Bitmap bottom, Bitmap center, Bitmap left, Bitmap right, Bitmap top)
@@ -266,7 +334,11 @@ namespace WeifenLuo.WinFormsUI.Docking
                 gfx.DrawImageUnscaled(right, 2 * cell - offset, cell);
             }
 
-            return result;
+            var scaled = ScaleBitmapIfNeeded(result);
+            if (!ReferenceEquals(scaled, result))
+                result.Dispose();
+
+            return scaled;
         }
 
         public static Bitmap GetFiveBackground(Bitmap mask, Color innerBorder, Color outerBorder, IPaintingService painting)

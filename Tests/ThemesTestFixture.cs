@@ -738,6 +738,33 @@ namespace Tests
             Assert.AreEqual(renderder, stripCustom.Renderer);
         }
 
+        [Test]
+        public void ThemeImageServiceKeepsPaneDiamondAndHotspotSizesAligned()
+        {
+            ThemeBase[] themes =
+            {
+                new VS2012BlueTheme(),
+                new VS2013BlueTheme(),
+                new VS2015BlueTheme()
+            };
+
+            try
+            {
+                foreach (ThemeBase theme in themes)
+                {
+                    Assert.AreEqual(theme.ImageService.Dockindicator_PaneDiamond.Size, theme.ImageService.Dockindicator_PaneDiamond_Hotspot.Size);
+                    Assert.AreEqual(theme.ImageService.Dockindicator_PaneDiamond.Size, theme.ImageService.Dockindicator_PaneDiamond_Fill.Size);
+                    Assert.Greater(theme.ImageService.DockIndicator_PanelBottom.Width, 0);
+                    Assert.Greater(theme.ImageService.DockPane_Close.Width, 0);
+                }
+            }
+            finally
+            {
+                foreach (ThemeBase theme in themes)
+                    theme.Dispose();
+            }
+        }
+
         public class CustomRenderer : ToolStripProfessionalRenderer
         { }
     }
