@@ -10,6 +10,7 @@
     <ProjectReference Include="..\WinFormsUI\ThemeVS2013.csproj" />
     <ProjectReference Include="..\WinFormsUI\ThemeVS2015.csproj" />
     <ProjectReference Include="..\WinFormsUI\WinFormsUI.csproj" />
+    <ProjectReference Include="..\WinFormsUI\ThemeVSCode.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />

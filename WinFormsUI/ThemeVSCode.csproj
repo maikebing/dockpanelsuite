@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <PackageId>DockPanelSuite.ThemeVSCode</PackageId>
+    <PackageVersion>3.1.1</PackageVersion>
+    <FileVersion>3.1.1.0</FileVersion>
+    <Authors>Weifen Luo and other contributors</Authors>
+    <Description>Visual Studio Code inspired theme for DockPanel Suite.</Description>
+    <Copyright>(C) 2007-2020 Weifen Luo and other contributors</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>http://dockpanelsuite.com</PackageProjectUrl>
+    <PackageReleaseNotes>
+      Release notes can be found at GitHub,
+      https://github.com/dockpanelsuite/dockpanelsuite/releases
+    </PackageReleaseNotes>
+    <TargetFrameworks>net40;net10.0-windows</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <StartupObject />
+    <RootNamespace>WeifenLuo.WinFormsUI</RootNamespace>
+    <AssemblyName>WeifenLuo.WinFormsUI.Docking.ThemeVSCode</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>dockpanelsuite.snk</AssemblyOriginatorKeyFile>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="ThemeVSCode\*.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ThemeVSCode\Resources.resx" />
+    <EmbeddedResource Include="ThemeVSCode\Strings.resx" />
+    <EmbeddedResource Include="ThemeVSCode\Resources\vscodedark.vstheme.gz">
+      <LogicalName>WeifenLuo.WinFormsUI.ThemeVSCode.Resources.vscodedark.vstheme.gz</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="dockpanelsuite.snk" />
+    <None Include="license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="WinFormsUI.csproj" />
+  </ItemGroup>
+
+</Project>

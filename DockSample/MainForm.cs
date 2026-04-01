@@ -19,10 +19,16 @@ namespace DockSample
         private DummyTaskList m_taskList;
         private bool _showSplash;
         private SplashScreen _splashScreen;
+        private readonly VSCodeDarkTheme _vsCodeDarkTheme;
+        private ToolStripMenuItem _menuItemSchemaVSCodeDark;
 
         public MainForm()
         {
             InitializeComponent();
+            _vsCodeDarkTheme = new VSCodeDarkTheme();
+            if (components != null)
+                components.Add(_vsCodeDarkTheme);
+            InitializeVSCodeThemeMenu();
 
             AutoScaleMode = AutoScaleMode.Dpi;
 
@@ -38,6 +44,23 @@ namespace DockSample
         }
 
         #region Methods
+
+        private void InitializeVSCodeThemeMenu()
+        {
+            _menuItemSchemaVSCodeDark = new ToolStripMenuItem
+            {
+                Name = "menuItemSchemaVSCodeDark",
+                Size = menuItemSchemaVS2015Dark.Size,
+                Text = "Schema: VSCode Dark"
+            };
+            _menuItemSchemaVSCodeDark.Click += SetSchema;
+
+            int insertIndex = menuItemTools.DropDownItems.IndexOf(menuItemSchemaVS2015Dark);
+            if (insertIndex >= 0)
+                menuItemTools.DropDownItems.Insert(insertIndex + 1, _menuItemSchemaVSCodeDark);
+            else
+                menuItemTools.DropDownItems.Add(_menuItemSchemaVSCodeDark);
+        }
 
         private IDockContent FindDocument(string text)
         {
@@ -220,6 +243,11 @@ namespace DockSample
                 this.dockPanel.Theme = this.vS2015DarkTheme1;
                 this.EnableVSRenderer(VisualStudioToolStripExtender.VsVersion.Vs2015, vS2015DarkTheme1);
             }
+            else if (sender == _menuItemSchemaVSCodeDark)
+            {
+                this.dockPanel.Theme = _vsCodeDarkTheme;
+                this.EnableVSRenderer(VisualStudioToolStripExtender.VsVersion.Vs2015, _vsCodeDarkTheme);
+            }
 
             menuItemSchemaVS2005.Checked = (sender == menuItemSchemaVS2005);
             menuItemSchemaVS2003.Checked = (sender == menuItemSchemaVS2003);
@@ -232,6 +260,8 @@ namespace DockSample
             menuItemSchemaVS2015Light.Checked = (sender == menuItemSchemaVS2015Light);
             menuItemSchemaVS2015Blue.Checked = (sender == menuItemSchemaVS2015Blue);
             menuItemSchemaVS2015Dark.Checked = (sender == menuItemSchemaVS2015Dark);
+            if (_menuItemSchemaVSCodeDark != null)
+                _menuItemSchemaVSCodeDark.Checked = (sender == _menuItemSchemaVSCodeDark);
             if (dockPanel.Theme.ColorPalette != null)
             {
                 statusBar.BackColor = dockPanel.Theme.ColorPalette.MainWindowStatusBarDefault.Background;

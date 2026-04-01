@@ -692,6 +692,43 @@ namespace Tests
 
         #endregion
 
+        #region VSCode
+        [Test]
+        public void CreateVisualStudioCodeDark()
+        {
+            var ColorPalette = new VSCodeDarkTheme().ColorPalette;
+
+            AssertColor(ColorPalette.AutoHideStripDefault.Background, ColorTranslator.FromHtml("#FF252526"));
+            AssertColor(ColorPalette.AutoHideStripDefault.Border, ColorTranslator.FromHtml("#FF3C3C3C"));
+            AssertColor(ColorPalette.AutoHideStripDefault.Text, ColorTranslator.FromHtml("#FF969696"));
+
+            AssertColor(ColorPalette.MainWindowActive.Background, ColorTranslator.FromHtml("#FF1E1E1E"));
+            AssertColor(ColorPalette.MainWindowStatusBarDefault.Background, ColorTranslator.FromHtml("#FF007ACC"));
+
+            AssertColor(ColorPalette.TabSelectedActive.Background, ColorTranslator.FromHtml("#FF1E1E1E"));
+            AssertColor(ColorPalette.TabSelectedActive.Text, ColorTranslator.FromHtml("#FFFFFFFF"));
+            AssertColor(ColorPalette.TabSelectedInactive.Background, ColorTranslator.FromHtml("#FF2D2D30"));
+            AssertColor(ColorPalette.TabSelectedInactive.Text, ColorTranslator.FromHtml("#FF969696"));
+            AssertColor(ColorPalette.TabUnselected.Background, ColorTranslator.FromHtml("#FF2D2D30"));
+            AssertColor(ColorPalette.TabUnselected.Text, ColorTranslator.FromHtml("#FF969696"));
+            AssertColor(ColorPalette.TabUnselectedHovered.Background, ColorTranslator.FromHtml("#FF2A2D2E"));
+            AssertColor(ColorPalette.TabUnselectedHovered.Text, ColorTranslator.FromHtml("#FFFFFFFF"));
+
+            AssertColor(ColorPalette.ToolWindowCaptionActive.Background, ColorTranslator.FromHtml("#FF252526"));
+            AssertColor(ColorPalette.ToolWindowCaptionActive.Text, ColorTranslator.FromHtml("#FFFFFFFF"));
+            AssertColor(ColorPalette.ToolWindowCaptionInactive.Background, ColorTranslator.FromHtml("#FF252526"));
+            AssertColor(ColorPalette.ToolWindowCaptionInactive.Text, ColorTranslator.FromHtml("#FF969696"));
+            AssertColor(ColorPalette.ToolWindowBorder, ColorTranslator.FromHtml("#FF3C3C3C"));
+            AssertColor(ColorPalette.ToolWindowTabSelectedActive.Background, ColorTranslator.FromHtml("#FF1E1E1E"));
+            AssertColor(ColorPalette.ToolWindowTabSelectedActive.Text, ColorTranslator.FromHtml("#FFFFFFFF"));
+            AssertColor(ColorPalette.ToolWindowTabUnselected.Background, ColorTranslator.FromHtml("#FF252526"));
+            AssertColor(ColorPalette.ToolWindowTabUnselected.Text, ColorTranslator.FromHtml("#FF969696"));
+
+            AssertColor(ColorPalette.DockTarget.GlyphBorder, ColorTranslator.FromHtml("#FF007ACC"));
+        }
+
+        #endregion
+
         private static void AssertColor(Color left, Color right)
         {
             Assert.AreEqual(left.ToArgb(), right.ToArgb(), $"expected {ColorTranslator.ToHtml(right)}, but {ColorTranslator.ToHtml(left)}");
@@ -745,7 +782,8 @@ namespace Tests
             {
                 new VS2012BlueTheme(),
                 new VS2013BlueTheme(),
-                new VS2015BlueTheme()
+                new VS2015BlueTheme(),
+                new VSCodeDarkTheme()
             };
 
             try
