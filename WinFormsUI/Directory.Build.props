@@ -1,5 +1,12 @@
 <Project>
- <PropertyGroup>
-   <BaseIntermediateOutputPath>obj/$(MSBuildProjectName)</BaseIntermediateOutputPath>
- </PropertyGroup>
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>obj/$(MSBuildProjectName)</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net4'))">
+    <AssetTargetFallback>$(AssetTargetFallback);net461</AssetTargetFallback>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
+  </ItemGroup>
 </Project>
