@@ -23,5 +23,10 @@ namespace WeifenLuo.WinFormsUI.ThemeVSCode
                 }
             }
         }
+
+        internal static byte[] LoadVSCodeLightTheme()
+        {
+            return Resources.vs2012light_vstheme;
+        }
     }
 }
